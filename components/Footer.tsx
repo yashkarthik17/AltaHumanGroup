@@ -1,44 +1,48 @@
+
 import React from 'react';
-import { StaticLogo } from './Logo';
+import { AHGLogo } from './Logo';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-black text-white py-16">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0">
-          <div className="flex flex-col items-center md:items-start">
-            <div className="bg-white p-2 rounded-full mb-4">
-                <StaticLogo className="w-16 h-16" />
-            </div>
-            <p className="text-sm text-gray-400 max-w-xs text-center md:text-left">
-              Standing together against hate. <br/>
-              Building a future of unity and respect.
+    <footer className="bg-white border-t border-gray-100 py-24">
+      <div className="container mx-auto px-6">
+        <div className="grid md:grid-cols-4 gap-12 mb-20">
+          <div className="col-span-2">
+            <AHGLogo className="h-12 mb-8" />
+            <p className="text-lg text-gray-500 max-w-sm font-light leading-relaxed">
+              Protecting civil rights and fostering global equity through advocacy, education, and response.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-12 text-center md:text-left">
-            <div>
-              <h4 className="text-sm font-bold tracking-[0.2em] uppercase mb-6 text-gray-500">Organization</h4>
-              <ul className="space-y-4 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-bold tracking-[0.2em] uppercase mb-6 text-gray-500">Connect</h4>
-              <ul className="space-y-4 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Twitter</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Newsletter</a></li>
-              </ul>
-            </div>
+          <div>
+            <h4 className="text-xs font-bold tracking-[0.4em] uppercase mb-8 text-black">Resource Portal</h4>
+            <ul className="space-y-4 text-sm font-bold uppercase tracking-widest text-gray-400">
+              <li><Link to="/about" className="hover:text-black transition-colors">Our Charter</Link></li>
+              <li><Link to="/news" className="hover:text-black transition-colors">Newsroom</Link></li>
+              <li><Link to="/impact" className="hover:text-black transition-colors">Impact Data</Link></li>
+              <li><Link to="/careers" className="hover:text-black transition-colors">Career Opportunities</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-bold tracking-[0.4em] uppercase mb-8 text-black">Social Impact</h4>
+            <ul className="space-y-4 text-sm font-bold uppercase tracking-widest text-gray-400">
+              <li><Link to="/campaign" className="hover:text-black transition-colors">Join The Circle</Link></li>
+              <li><a href="#" className="hover:text-black transition-colors">Partner With Us</a></li>
+              <li><a href="#" className="hover:text-black transition-colors">Volunteer Hub</a></li>
+              <li><a href="#" className="hover:text-black transition-colors">Contact Support</a></li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-900 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 uppercase tracking-wider">
-          <p>&copy; {new Date().getFullYear()} Join The Circle. All rights reserved.</p>
-          <p className="mt-2 md:mt-0">Design inspired by Blue Square Alliance</p>
+        <div className="pt-12 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">
+          <p>&copy; {new Date().getFullYear()} Alta Humanitarian Group. All rights reserved.</p>
+          <div className="flex gap-8 mt-4 md:mt-0">
+            <a href="#" className="hover:text-black">Privacy Charter</a>
+            <a href="#" className="hover:text-black">Terms of Service</a>
+            <a href="#" className="hover:text-black">Global Ethics</a>
+          </div>
         </div>
       </div>
     </footer>

@@ -60,7 +60,7 @@ export const WearTheCircle: React.FC = () => {
                     The <span className="font-bold text-black">#BlackCircle</span> is more than just a symbol. It’s a powerful and visible statement of unity and allyship with the Black community.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                    <button className="bg-[#0000FF] text-white px-8 py-4 md:px-10 md:py-5 text-base md:text-xl font-bold uppercase tracking-widest hover:bg-blue-700 transition-all hover:scale-105 rounded-sm shadow-xl">
+                    <button className="bg-[#0000FF] text-white px-8 py-4 md:px-10 md:py-5 text-base md:text-xl font-bold uppercase tracking-widest hover:bg-blue-700 transition-all hover:scale-105 rounded-sm shadow-xl w-full sm:w-auto">
                         Request a Black Circle
                     </button>
                 </div>
@@ -86,10 +86,10 @@ export const WearTheCircle: React.FC = () => {
         
         {/* Mobile Grid Layout for Images */}
         <div className="grid grid-cols-2 gap-4 mt-12 xl:hidden px-4 relative z-10 max-w-2xl mx-auto">
-             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border-2 border-white transform -rotate-2">
+             <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-lg border-2 border-white transform -rotate-1">
                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" className="w-full h-full object-cover grayscale" alt="Portrait" />
              </div>
-             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border-2 border-white transform rotate-2 mt-8">
+             <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-lg border-2 border-white transform rotate-1 mt-6">
                  <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=600&auto=format&fit=crop" className="w-full h-full object-cover grayscale" alt="Group" />
              </div>
         </div>

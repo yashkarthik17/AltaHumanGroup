@@ -1,10 +1,13 @@
+
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { Logo } from './Logo';
+import { Menu, X } from 'lucide-react';
+import { AHGLogo } from './Logo';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,66 +17,115 @@ export const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Dynamic colors based on scroll state
-  const textColor = isScrolled ? 'text-black' : 'text-white';
-  const logoColor = isScrolled ? 'black' : 'white';
-  const buttonBg = isScrolled ? 'bg-black text-white hover:bg-zinc-800' : 'bg-white text-black hover:bg-gray-200';
-  const navBg = isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-6';
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location]);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMobileMenuOpen]);
+
+  const handleLinkClick = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const logoColor = "black"; 
+  
+  // When menu is open, ensure the header is solid white to mask content scrolling behind it
+  const navBg = (isScrolled && !isMobileMenuOpen) 
+    ? 'bg-white/95 backdrop-blur-md shadow-sm py-4' 
+    : 'bg-white py-4 md:py-6';
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${navBg}`}>
-      <div className="max-w-screen-2xl mx-auto px-6 sm:px-12">
-        <div className="flex justify-between items-center">
-          
-          {/* Left: Animated Logo */}
-          <div className="flex items-center gap-4">
-             <a href="#" className="block group">
-                {/* We use the Animated Logo here as requested */}
-                <Logo 
-                  className={`transition-all duration-500 ${isScrolled ? 'w-12 h-12' : 'w-16 h-16'}`} 
-                  color={logoColor}
-                />
-             </a>
-             {/* Text Brand only visible on scroll or desktop to keep hero clean */}
-             <div className={`hidden md:block transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}>
-                <span className={`block text-[10px] font-bold tracking-[0.2em] leading-none ${textColor}`}>JOIN THE</span>
-                <span className={`block text-[10px] font-bold tracking-[0.2em] leading-none ${textColor}`}>CIRCLE</span>
-             </div>
-          </div>
-
-          {/* Right: Actions */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#mission" className={`text-sm font-semibold tracking-wide hover:opacity-70 transition-opacity ${textColor}`}>
-              The Mission
-            </a>
+    <>
+      <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out ${navBg} border-b border-gray-100`}>
+        <div className="max-w-screen-2xl mx-auto px-6 sm:px-12">
+          <div className="flex justify-between items-center">
             
-            <a href="#education" className={`text-sm font-semibold tracking-wide hover:opacity-70 transition-opacity ${textColor}`}>
-              Education
-            </a>
+            {/* Left: AHG Branding */}
+            <div className="flex items-center gap-4 relative z-[102]">
+               <Link to="/" onClick={handleLinkClick} className="block">
+                  <AHGLogo className={`transition-all duration-500 ${isScrolled ? 'h-6 md:h-7' : 'h-8 md:h-10'}`} color={logoColor} />
+               </Link>
+            </div>
 
-            <a href="#donate" className={`px-8 py-3 text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 rounded-full ${buttonBg}`}>
-              Support
-            </a>
-          </div>
+            {/* Right: Desktop Actions */}
+            <div className="hidden md:flex items-center space-x-12">
+              <Link to="/" className={`text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-opacity ${location.pathname === '/' ? 'text-black opacity-100' : 'text-gray-400'}`}>
+                The Group
+              </Link>
+              <Link to="/about" className={`text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-opacity ${location.pathname === '/about' ? 'text-black opacity-100' : 'text-gray-400'}`}>
+                Our Charter
+              </Link>
+              <div className="w-px h-4 bg-gray-200"></div>
+              <Link to="/campaign" className="text-[10px] font-bold uppercase tracking-[0.3em] px-6 py-2.5 bg-black text-white hover:bg-zinc-800 transition-all shadow-lg shadow-black/5">
+                Join The Circle
+              </Link>
+              <Link to="/get-involved" className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors">
+                Contact
+              </Link>
+            </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={`p-2 ${textColor}`}>
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile Menu Toggle */}
+            <div className="md:hidden relative z-[102]">
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+                className="p-2 -mr-2 text-black"
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              >
+                {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-white z-40 transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}>
-          <div className="flex flex-col h-full justify-center items-center space-y-8 p-8">
-            <Logo className="w-24 h-24 mb-8" />
-            <a href="#mission" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold text-black">Our Mission</a>
-            <a href="#education" onClick={() => setIsMobileMenuOpen(false)} className="text-2xl font-bold text-black">Education</a>
-            <a href="#donate" onClick={() => setIsMobileMenuOpen(false)} className="px-10 py-4 bg-black text-white text-sm font-bold tracking-widest uppercase rounded-full">Support</a>
+      {/* Mobile Menu Overlay - Sibling to nav to avoid stacking context/clip issues */}
+      <div className={`fixed inset-0 bg-white z-[99] transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}>
+          <div className="flex flex-col h-full overflow-y-auto relative z-10 pt-24">
+            <div className="flex flex-col justify-center min-h-full px-8 pb-12 space-y-10">
+              <div className="mb-4">
+                  <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-400 block mb-4">Navigation</span>
+                  <div className="w-12 h-0.5 bg-black/10"></div>
+              </div>
+              
+              <nav className="flex flex-col space-y-6">
+                <Link to="/" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
+                  The Group
+                </Link>
+                <Link to="/about" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
+                  Our Charter
+                </Link>
+                <Link to="/campaign" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter text-black hover:text-gray-600 transition-colors">
+                  Join The Circle
+                </Link>
+                <Link to="/news" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
+                  Newsroom
+                </Link>
+                <Link to="/get-involved" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
+                  Contact
+                </Link>
+              </nav>
+              
+              <div className="pt-10 border-t border-gray-100 mt-auto">
+                  <div className="flex flex-col gap-4">
+                     <Link to="/campaign" onClick={handleLinkClick} className="w-full py-4 bg-black text-white text-center text-xs font-bold uppercase tracking-[0.2em]">
+                        Active Campaign
+                     </Link>
+                     <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400 text-center mt-4">
+                        Alta Humanitarian Group
+                     </div>
+                  </div>
+              </div>
+            </div>
           </div>
       </div>
-    </nav>
+    </>
   );
 };

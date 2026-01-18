@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export const Manifesto: React.FC = () => {
@@ -5,12 +6,12 @@ export const Manifesto: React.FC = () => {
     <section id="mission" className="py-16 md:py-24 bg-zinc-50">
       <div className="container mx-auto px-6 sm:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6 md:space-y-8 text-center md:text-left">
             <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-400">The Symbol</h2>
             <h3 className="text-3xl md:text-5xl font-serif leading-tight">
               Why the Black Circle?
             </h3>
-            <div className="w-12 h-1 bg-black"></div>
+            <div className="w-12 h-1 bg-black mx-auto md:mx-0"></div>
             <p className="text-gray-600 leading-loose text-base md:text-lg">
               Like the Blue Square represents a stand against antisemitism, the <strong>Black Circle</strong> represents our unwavering commitment to protecting Black lives.
             </p>

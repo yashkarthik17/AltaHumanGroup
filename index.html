@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join The Circle - Stop The Hate</title>
+    <title>Alta Humanitarian Group - Standing Against Hate</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <style>
       body {
         font-family: 'Inter', sans-serif;
+        background-color: white;
+        margin: 0;
       }
       .serif {
         font-family: 'Playfair Display', serif;
@@ -30,6 +32,14 @@
         animation: fadeInUp 1.2s ease-out forwards;
       }
       
+      @keyframes scroll-indicator {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+      }
+      .animate-scroll-indicator {
+        animation: scroll-indicator 2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+      }
+
       @keyframes pulse-subtle {
         0%, 100% { transform: scale(1); opacity: 1; }
         50% { transform: scale(0.98); opacity: 0.95; }
@@ -60,11 +70,14 @@
   <script type="importmap">
 {
   "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
+    "react": "https://esm.sh/react@19.0.0",
+    "react/": "https://esm.sh/react@19.0.0/",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/": "https://esm.sh/react-dom@19.0.0/",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "@google/genai": "https://esm.sh/@google/genai@1.3.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.473.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom"
   }
 }
 </script>
