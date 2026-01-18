@@ -1,13 +1,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronDown, Wand2, Loader2 } from 'lucide-react';
 import { Logo } from './Logo';
-import { GoogleGenAI } from "@google/genai";
 
-const VIDEO_SOURCES = [
-  "https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-diverse-group-of-people-united-4828-large.mp4",
-  "https://assets.mixkit.co/videos/preview/mixkit-diversity-of-young-people-posing-for-camera-4247-large.mp4", 
-  "https://assets.mixkit.co/videos/preview/mixkit-friends-with-colored-smoke-bombs-4256-large.mp4" 
+// Restoring the local video file as requested
+const STATIC_VIDEO_SOURCES = [
+  "Videos/Generated File January 17, 2026 - 11_27PM.mp4"
 ];
 
 export const Hero: React.FC = () => {
@@ -17,22 +14,22 @@ export const Hero: React.FC = () => {
   const bottomBarRef = useRef<HTMLDivElement>(null);
 
   const [initialLogoPos, setInitialLogoPos] = useState<{x: number, y: number} | null>(null);
+  
+  // Video Management State
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const videoSources = STATIC_VIDEO_SOURCES;
 
-  // Gemini Video Generation State
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedVideo, setGeneratedVideo] = useState<string | null>(null);
-
+  // Rotation Logic (kept in case more static videos are added later)
   useEffect(() => {
-    // Rotate videos every 6 seconds only if we aren't showing a generated video
-    if (generatedVideo) return;
+    if (videoSources.length <= 1) return;
 
     const interval = setInterval(() => {
-        setCurrentVideoIndex(prev => (prev + 1) % VIDEO_SOURCES.length);
-    }, 6000);
+        setCurrentVideoIndex(prev => (prev + 1) % videoSources.length);
+    }, 8000); 
     return () => clearInterval(interval);
-  }, [generatedVideo]);
+  }, [videoSources.length]); 
 
+  // Standard Scroll Animation Logic
   useEffect(() => {
     const measureLogo = () => {
       if (logoRef.current) {
@@ -66,12 +63,9 @@ export const Hero: React.FC = () => {
       const progress = Math.max(0, Math.min(scrollY / totalScrollHeight, 1));
       
       requestAnimationFrame(() => {
-        // Text fades out early so we can focus on the zoom
-        const textFadeOutPoint = 0.5;
+        // Slow down text fade
+        const textFadeOutPoint = 0.8;
         const textOpacity = Math.max(0, 1 - (progress / textFadeOutPoint));
-        
-        // Remove background fade to prevent black bar effect
-        // The background will simply scroll up with the container naturally
         
         if (bottomBarRef.current) bottomBarRef.current.style.opacity = `${textOpacity}`;
         
@@ -86,12 +80,11 @@ export const Hero: React.FC = () => {
            const deltaX = centerScreenX - initialLogoPos.x;
            const deltaY = centerScreenY - initialLogoPos.y;
            
-           // Scale increases massively to create the "entering" effect
-           // Increased multiplier slightly since scroll distance is shorter
-           const scale = 1 + (progress * 180); 
+           // Drastically reduced scale and rotation for smoother/slower feel
+           const scale = 1 + (progress * 30); 
            const x = deltaX * progress;
            const y = deltaY * progress;
-           const rotation = progress * 180; 
+           const rotation = progress * 45; 
 
            logoRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale}) rotate(${rotation}deg)`;
         }
@@ -109,85 +102,19 @@ export const Hero: React.FC = () => {
     }
   };
 
-  const handleGenerateVideo = async () => {
-    if (isGenerating) return;
-
-    try {
-        // @ts-ignore
-        if (window.aistudio?.hasSelectedApiKey && !(await window.aistudio.hasSelectedApiKey())) {
-             // @ts-ignore
-             await window.aistudio.openSelectKey();
-        }
-
-        setIsGenerating(true);
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-        
-        let operation = await ai.models.generateVideos({
-            model: 'veo-3.1-fast-generate-preview',
-            prompt: 'Cinematic slow motion shot of a diverse group of people standing together in unity, holding hands, warm sunlight, hopeful atmosphere, high quality, photorealistic, 4k',
-            config: {
-                numberOfVideos: 1,
-                resolution: '1080p',
-                aspectRatio: '16:9'
-            }
-        });
-
-        while (!operation.done) {
-            await new Promise(resolve => setTimeout(resolve, 5000));
-            operation = await ai.operations.getVideosOperation({operation: operation});
-        }
-
-        const videoUri = operation.response?.generatedVideos?.[0]?.video?.uri;
-        if (videoUri) {
-            setGeneratedVideo(`${videoUri}&key=${process.env.API_KEY}`);
-        }
-    } catch (e) {
-        console.error("Failed to generate video", e);
-    } finally {
-        setIsGenerating(false);
-    }
+  const onVideoError = (e: React.SyntheticEvent<HTMLVideoElement, Event>, src: string) => {
+    console.warn(`Video load error for URL: ${src}.`);
   };
 
   return (
-    // Reduced height from 150vh to 120vh to eliminate the "long black bar" gap
     <div ref={containerRef} className="relative h-[120vh] w-full bg-black overflow-visible">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
         
-        {/* AI Video Generation Control */}
-        <div className="absolute top-24 right-6 z-50 flex flex-col items-end gap-2 pointer-events-auto">
-            <button 
-                onClick={handleGenerateVideo}
-                disabled={isGenerating}
-                className="bg-white/10 backdrop-blur-md p-3 rounded-full hover:bg-white/20 transition-all border border-white/20 group relative overflow-hidden"
-            >
-                {isGenerating ? <Loader2 className="w-5 h-5 text-white animate-spin" /> : <Wand2 className="w-5 h-5 text-white" />}
-                <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 text-[10px] font-bold uppercase tracking-widest text-white opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 px-3 py-1 rounded backdrop-blur-sm whitespace-nowrap">
-                    {isGenerating ? "Creating Scene..." : "Generate AI Scene"}
-                </span>
-            </button>
-        </div>
-
         {/* Video Background Container */}
         <div ref={bgRef} className="absolute inset-0 z-0 bg-black">
            
-           {/* Generated Video Layer */}
-           {generatedVideo && (
-             <div className="absolute inset-0 z-10 animate-fade-in">
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    key={generatedVideo} // Force remount on new video
-                    className="w-full h-full object-cover scale-105"
-                >
-                    <source src={generatedVideo} type="video/mp4" />
-                </video>
-             </div>
-           )}
-
-           {/* Default Rotating Video Layer (Only visible if no generated video) */}
-           {!generatedVideo && VIDEO_SOURCES.map((src, index) => (
+           {/* Video Rendering */}
+           {videoSources.map((src, index) => (
              <div 
                 key={src} 
                 className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentVideoIndex ? 'opacity-100' : 'opacity-0'}`}
@@ -197,16 +124,29 @@ export const Hero: React.FC = () => {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover scale-105"
+                    className="w-full h-full object-cover scale-105 opacity-50" 
+                    onError={(e) => onVideoError(e, src)}
                 >
                     <source src={src} type="video/mp4" />
                 </video>
              </div>
            ))}
+           
+           {/* Fallback if no videos */}
+           {videoSources.length === 0 && (
+             <div className="absolute inset-0 bg-zinc-900 flex items-center justify-center overflow-hidden">
+                <img 
+                    src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=1920&auto=format&fit=crop" 
+                    alt="Fallback" 
+                    className="absolute inset-0 w-full h-full object-cover opacity-50"
+                />
+                <span className="relative z-10 text-white/20 font-serif italic text-2xl drop-shadow-md">Visuals Loading...</span>
+             </div>
+           )}
 
-          {/* Gradients for text readability - Lightened for better visibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/10 to-black/60 z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 z-10"></div>
+          {/* Gradients for text readability - slightly reduced for testing visibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 z-10 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 z-10 pointer-events-none"></div>
         </div>
 
         {/* Content Container */}

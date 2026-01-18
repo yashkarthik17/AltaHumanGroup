@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 const getClient = () => {
@@ -16,12 +17,15 @@ export const getAllyshipAdvice = async (topic: string): Promise<string> => {
   try {
     const model = 'gemini-2.5-flash-preview'; 
     const prompt = `
-      You are an expert on civil rights history, anti-racism, and allyship for the African American community.
+      You are an expert on civil rights history, specifically Anti-Black racism (Anti-Black), and allyship for the Black community.
       The user is asking for advice or information on: "${topic}".
       
       Provide a concise, empathetic, and actionable response (under 150 words). 
-      Focus on education, historical context, or practical steps to stand against hate.
-      Tone: Serious, educational, and inspiring.
+      
+      Guidelines:
+      1. Specifically address Anti-Black prejudice if relevant (the specific marginalization of Black people).
+      2. Provide historical context or practical steps to stand against hate.
+      3. Tone: Serious, educational, and inspiring.
     `;
 
     const response = await ai.models.generateContent({

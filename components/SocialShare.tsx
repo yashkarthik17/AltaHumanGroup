@@ -1,7 +1,7 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Instagram, Twitter, Heart, MessageCircle } from 'lucide-react';
-import { StaticLogo, Logo } from './Logo';
+import { Logo, StaticLogo } from './Logo';
 
 const SOCIAL_POSTS = [
   {
@@ -114,12 +114,14 @@ const ParallaxItem: React.FC<ParallaxItemProps> = ({ speed, className, children,
   );
 };
 
-const SocialCard = ({ post }: { post: typeof SOCIAL_POSTS[0] }) => {
+type SocialPost = typeof SOCIAL_POSTS[number];
+
+const SocialCard: React.FC<{ post: SocialPost }> = ({ post }) => {
     const Icon = post.platform === 'twitter' ? Twitter : Instagram;
     const iconColor = post.platform === 'twitter' ? 'text-[#1DA1F2]' : 'text-[#E1306C]';
 
     return (
-        <div className={`w-[85vw] sm:w-[300px] bg-white/95 backdrop-blur-sm text-black p-5 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 ${post.rotation} hover:scale-105 hover:rotate-0 hover:z-50 transition-all duration-300`}>
+        <div className={`w-[280px] sm:w-[300px] bg-white/95 backdrop-blur-sm text-black p-5 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 ${post.rotation} hover:scale-105 hover:rotate-0 hover:z-50 transition-all duration-300 flex-shrink-0 snap-center`}>
             <div className="flex items-center gap-3 mb-3">
                 <img src={post.avatar} alt={post.author} className="w-10 h-10 rounded-full object-cover border border-gray-200" />
                 <div className="flex-1 min-w-0">
@@ -161,15 +163,15 @@ export const SocialShare: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   return (
-    <section ref={sectionRef} className="relative min-h-[120vh] md:min-h-[140vh] bg-[#f8f8f8] overflow-hidden flex flex-col items-center justify-center py-20">
+    <section ref={sectionRef} className="relative min-h-screen md:min-h-[140vh] bg-[#f8f8f8] overflow-hidden flex flex-col items-center justify-center py-20">
       
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>
 
-      {/* Central Content (The "Word in the Middle") */}
-      <div className="z-30 text-center px-4 relative max-w-4xl mx-auto mix-blend-multiply pointer-events-none">
+      {/* Central Content */}
+      <div className="z-30 text-center px-4 relative max-w-4xl mx-auto mix-blend-multiply md:pointer-events-none mb-12 md:mb-0">
         <p className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-gray-400 mb-6 animate-pulse-subtle">The Community</p>
         <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-serif font-bold mb-4 tracking-tighter text-black leading-none">
           Voices of <br/> Change
@@ -183,13 +185,22 @@ export const SocialShare: React.FC = () => {
         </p>
       </div>
 
-      {/* Parallax Floating Cards */}
-      <div className="absolute inset-0 z-20 pointer-events-none w-full h-full overflow-hidden">
+      {/* Desktop: Parallax Floating Cards */}
+      <div className="hidden md:block absolute inset-0 z-20 pointer-events-none w-full h-full overflow-hidden">
         {SOCIAL_POSTS.map((post, idx) => (
             <ParallaxItem key={idx} speed={post.speed} className={`pointer-events-auto ${post.position}`} sectionRef={sectionRef}>
                 <SocialCard post={post} />
             </ParallaxItem>
         ))}
+      </div>
+      
+      {/* Mobile: Horizontal Scroll List below content */}
+      <div className="md:hidden w-full overflow-x-auto pb-8 pt-4 px-6 snap-x snap-mandatory flex gap-4 no-scrollbar z-40">
+           {SOCIAL_POSTS.map((post, idx) => (
+               <SocialCard key={idx} post={post} />
+           ))}
+           {/* Spacer */}
+           <div className="w-4 flex-shrink-0"></div>
       </div>
 
       {/* Decorative Blur Elements */}

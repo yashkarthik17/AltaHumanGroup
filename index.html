@@ -11,11 +11,17 @@
         font-family: 'Inter', sans-serif;
         background-color: white;
         margin: 0;
+        overflow-x: hidden;
       }
       .serif {
         font-family: 'Playfair Display', serif;
       }
       
+      /* Smooth Scrolling for Anchor Links */
+      html {
+        scroll-behavior: smooth;
+      }
+
       @keyframes spin-slow {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
@@ -29,7 +35,15 @@
         to { opacity: 1; transform: translateY(0); }
       }
       .animate-fade-in-up {
-        animation: fadeInUp 1.2s ease-out forwards;
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
       }
       
       @keyframes scroll-indicator {
@@ -65,6 +79,29 @@
       }
       .pause-on-hover:hover .animate-scroll-left {
         animation-play-state: paused;
+      }
+
+      /* Custom Scrollbar for sleek look */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888; 
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+      }
+
+      /* Utility for hiding scrollbar but keeping functionality */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
       }
     </style>
   <script type="importmap">
