@@ -37,81 +37,84 @@ export const Navigation: React.FC = () => {
 
   const logoColor = "black"; 
   
-  // When menu is open, ensure the header is solid white to mask content scrolling behind it
-  const navBg = (isScrolled && !isMobileMenuOpen) 
+  // Header background logic
+  const navBg = (isScrolled || isMobileMenuOpen) 
     ? 'bg-white/95 backdrop-blur-md shadow-sm py-4' 
     : 'bg-white py-4 md:py-6';
 
   return (
-    <>
-      <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out ${navBg} border-b border-gray-100`}>
-        <div className="max-w-screen-2xl mx-auto px-6 sm:px-12">
-          <div className="flex justify-between items-center">
-            
-            {/* Left: AHG Branding */}
-            <div className="flex items-center gap-4 relative z-[102]">
-               <Link to="/" onClick={handleLinkClick} className="block">
-                  <AHGLogo className={`transition-all duration-500 ${isScrolled ? 'h-6 md:h-7' : 'h-8 md:h-10'}`} color={logoColor} />
-               </Link>
-            </div>
+    <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out ${navBg} border-b border-gray-100`}>
+      <div className="max-w-screen-2xl mx-auto px-6 sm:px-12 relative z-[102]">
+        <div className="flex justify-between items-center">
+          
+          {/* Left: AHG Branding */}
+          <div className="flex items-center gap-4 relative z-[102]">
+             <Link to="/" onClick={handleLinkClick} className="block">
+                <AHGLogo className={`transition-all duration-500 ${isScrolled ? 'h-6 md:h-7' : 'h-8 md:h-10'}`} color={logoColor} />
+             </Link>
+          </div>
 
-            {/* Right: Desktop Actions */}
-            <div className="hidden md:flex items-center space-x-12">
-              <Link to="/" className={`text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-opacity ${location.pathname === '/' ? 'text-black opacity-100' : 'text-gray-400'}`}>
-                The Group
-              </Link>
-              <Link to="/about" className={`text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-opacity ${location.pathname === '/about' ? 'text-black opacity-100' : 'text-gray-400'}`}>
-                Our Charter
-              </Link>
-              <div className="w-px h-4 bg-gray-200"></div>
-              <Link to="/campaign" className="text-[10px] font-bold uppercase tracking-[0.3em] px-6 py-2.5 bg-black text-white hover:bg-zinc-800 transition-all shadow-lg shadow-black/5">
-                Join The Circle
-              </Link>
-              <Link to="/get-involved" className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors">
-                Contact
-              </Link>
-            </div>
+          {/* Right: Desktop Actions */}
+          <div className="hidden md:flex items-center space-x-12">
+            <Link to="/" className={`text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-opacity ${location.pathname === '/' ? 'text-black opacity-100' : 'text-gray-400'}`}>
+              The Group
+            </Link>
+            <Link to="/about" className={`text-[10px] font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-opacity ${location.pathname === '/about' ? 'text-black opacity-100' : 'text-gray-400'}`}>
+              Our Charter
+            </Link>
+            <div className="w-px h-4 bg-gray-200"></div>
+            <Link to="/campaign" className="text-[10px] font-bold uppercase tracking-[0.3em] px-6 py-2.5 bg-black text-white hover:bg-zinc-800 transition-all shadow-lg shadow-black/5">
+              Join The Circle
+            </Link>
+            <Link to="/get-involved" className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors">
+              Contact
+            </Link>
+          </div>
 
-            {/* Mobile Menu Toggle */}
-            <div className="md:hidden relative z-[102]">
-              <button 
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-                className="p-2 -mr-2 text-black"
-                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              >
-                {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-              </button>
-            </div>
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden relative z-[105]">
+            <button 
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+              className="p-2 -mr-2 text-black hover:opacity-70 transition-opacity"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
         </div>
-      </nav>
+      </div>
 
-      {/* Mobile Menu Overlay - Sibling to nav to avoid stacking context/clip issues */}
-      <div className={`fixed inset-0 bg-white z-[99] transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}>
-          <div className="flex flex-col h-full overflow-y-auto relative z-10 pt-24">
-            <div className="flex flex-col justify-center min-h-full px-8 pb-12 space-y-10">
+      {/* Mobile Menu Overlay */}
+      {/* Placed inside nav to utilize stacking context correctly with button */}
+      <div 
+        className={`fixed inset-0 bg-white z-[101] transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}
+        style={{ top: 0 }}
+      >
+          <div className="flex flex-col h-full w-full overflow-y-auto px-8 pt-28 pb-12">
+            <div className="flex flex-col justify-center min-h-[60vh] space-y-10">
               <div className="mb-4">
                   <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-400 block mb-4">Navigation</span>
                   <div className="w-12 h-0.5 bg-black/10"></div>
               </div>
               
-              <nav className="flex flex-col space-y-6">
-                <Link to="/" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
+              <div className="flex flex-col space-y-6">
+                <Link to="/" onClick={handleLinkClick} className="text-3xl sm:text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
                   The Group
                 </Link>
-                <Link to="/about" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
+                <Link to="/about" onClick={handleLinkClick} className="text-3xl sm:text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
                   Our Charter
                 </Link>
-                <Link to="/campaign" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter text-black hover:text-gray-600 transition-colors">
+                <Link to="/campaign" onClick={handleLinkClick} className="text-3xl sm:text-4xl font-serif italic font-bold tracking-tighter text-black hover:text-gray-600 transition-colors">
                   Join The Circle
                 </Link>
-                <Link to="/news" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
+                <Link to="/news" onClick={handleLinkClick} className="text-3xl sm:text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
                   Newsroom
                 </Link>
-                <Link to="/get-involved" onClick={handleLinkClick} className="text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
+                <Link to="/get-involved" onClick={handleLinkClick} className="text-3xl sm:text-4xl font-serif italic font-bold tracking-tighter hover:text-gray-600 transition-colors">
                   Contact
                 </Link>
-              </nav>
+              </div>
               
               <div className="pt-10 border-t border-gray-100 mt-auto">
                   <div className="flex flex-col gap-4">
@@ -126,6 +129,6 @@ export const Navigation: React.FC = () => {
             </div>
           </div>
       </div>
-    </>
+    </nav>
   );
 };
