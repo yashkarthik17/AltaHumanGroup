@@ -534,7 +534,7 @@ const CHAPTERS = [
     title: "Voter Suppression",
     subtitle: "Democracy Denied",
     icon: <Vote size={24} />,
-    image: "https://images.unsplash.com/photo-1540910419868-474947cebacb?q=80&w=800&auto=format&fit=crop",
+    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_23PM_1768785814498.jpeg",
     content: (
       <div className="space-y-6">
         <p className="text-lg leading-relaxed font-light">
