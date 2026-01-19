@@ -177,6 +177,7 @@ export const SocialShare: React.FC = () => {
           Voices of <br/> Change
         </h2>
         <div className="w-24 h-24 md:w-32 md:h-32 mx-auto my-8 relative flex items-center justify-center">
+             <div className="absolute inset-0 bg-black rounded-full animate-pulse-subtle opacity-10"></div>
              <StaticLogo className="w-full h-full animate-spin-slow" />
         </div>
         <p className="text-lg md:text-2xl text-gray-500 font-light max-w-xl mx-auto">

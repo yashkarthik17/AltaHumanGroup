@@ -4,7 +4,7 @@ import { Logo } from './Logo';
 
 // Restoring the local video file as requested
 const STATIC_VIDEO_SOURCES = [
-  "/attached_assets/Generated_File_January_18,_2026_-_2_28PM_1768785265215.mp4"
+  "Videos/Generated File January 17, 2026 - 11_27PM.mp4"
 ];
 
 export const Hero: React.FC = () => {
@@ -162,11 +162,11 @@ export const Hero: React.FC = () => {
                     loop
                     muted
                     playsInline
-                    preload="auto"
-                    className="w-full h-full object-cover scale-105 opacity-50"
-                    src={src}
+                    className="w-full h-full object-cover scale-105 opacity-50" 
                     onError={(e) => console.warn("Video load error")}
-                />
+                >
+                    <source src={src} type="video/mp4" />
+                </video>
              </div>
            ))}
            
@@ -193,10 +193,10 @@ export const Hero: React.FC = () => {
                 <span className="text-[9px] md:text-[10px] font-bold tracking-[0.3em] uppercase">The Perimeter</span>
              </div>
              <h1 className="text-5xl md:text-8xl font-serif font-bold italic tracking-tighter leading-[0.9] mb-4">
-               Rise <br/> Above <br/> The Hate.
+               Solidarity. <br/> Without <br/> Exception.
              </h1>
              <p className="text-lg md:text-2xl text-gray-300 font-light tracking-wide max-w-md mx-auto md:mx-0">
-               Learn how Anti-Black affects everyone.
+               A visual declaration of protection against Anti-Black hate.
              </p>
              <div className="pt-2">
                 <span className="text-2xl md:text-4xl font-serif font-bold italic text-white/90">#jointhecircle⚫</span>
@@ -208,12 +208,7 @@ export const Hero: React.FC = () => {
             {/* Wrapper ensures we can always measure the original position even when logo is moved/scaled */}
             <div ref={logoWrapperRef} className="w-48 h-48 md:w-72 md:h-72 relative z-10">
                 <span ref={logoRef} className="block w-full h-full will-change-transform origin-center drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                    <img 
-                      src="/attached_assets/Untitled_design_1768795909456.png" 
-                      alt="Join The Circle Logo" 
-                      className="w-full h-full object-contain"
-                      style={{ filter: 'invert(1)' }}
-                    />
+                    <Logo className="w-full h-full" color="white" />
                 </span>
             </div>
             <p className="hero-text-fade mt-8 text-[9px] md:text-[10px] font-bold tracking-[0.4em] uppercase text-gray-400 animate-pulse">

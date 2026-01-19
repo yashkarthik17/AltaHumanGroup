@@ -6,7 +6,7 @@ const EVENTS = [
     year: "1619",
     title: "The Beginning",
     desc: "In late August 1619, 20-30 enslaved Africans landed at Point Comfort, Virginia. This marked the beginning of over two centuries of chattel slavery in America.",
-    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_24PM_1768785895873.jpeg"
+    image: "https://images.unsplash.com/photo-1598556804561-2673238382d5?q=80&w=800&auto=format&fit=crop" // Historic/Old paper texture
   },
   {
     year: "1863",
@@ -18,19 +18,19 @@ const EVENTS = [
     year: "1877-1960s",
     title: "Jim Crow Era",
     desc: "State and local laws introduced in the Southern United States enforced racial segregation. These laws remained in force until the 1960s, creating a legal framework for discrimination.",
-    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_18PM_1768785541967.jpeg"
+    image: "https://images.unsplash.com/photo-1574092520671-5517176df9d4?q=80&w=800&auto=format&fit=crop" // Historical feeling/BW
   },
   {
     year: "1980s-1990s",
     title: "The Crack Epidemic",
     desc: "The 'War on Drugs' disproportionately targeted Black communities during the crack epidemic, contributing to mass incarceration that persists today.",
-    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_16PM_(1)_1768785457749.jpeg"
+    image: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=800&auto=format&fit=crop" // Urban/Gritty
   },
   {
     year: "Present",
     title: "Systemic Legacy",
     desc: "Today, disparate outcomes in wealth, health, and justice reflect systems designed to produce inequality that continue to operate unless actively reformed.",
-    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_25PM_1768785940430.jpeg"
+    image: "https://images.unsplash.com/photo-1596484552993-9c86992d9972?q=80&w=800&auto=format&fit=crop" // Protest/Modern
   }
 ];
 

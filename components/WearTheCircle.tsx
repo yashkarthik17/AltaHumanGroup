@@ -60,7 +60,7 @@ export const WearTheCircle: React.FC = () => {
                     The <span className="font-bold text-black">#BlackCircle</span> is more than just a symbol. It’s a powerful and visible statement of unity against Anti-Black prejudice.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                    <button className="bg-black text-white px-8 py-4 md:px-10 md:py-5 text-base md:text-xl font-bold uppercase tracking-widest hover:bg-gray-800 transition-all hover:scale-105 rounded-sm shadow-xl w-full sm:w-auto">
+                    <button className="bg-[#0000FF] text-white px-8 py-4 md:px-10 md:py-5 text-base md:text-xl font-bold uppercase tracking-widest hover:bg-blue-700 transition-all hover:scale-105 rounded-sm shadow-xl w-full sm:w-auto">
                         Request a Black Circle
                     </button>
                 </div>
