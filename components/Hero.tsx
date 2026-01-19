@@ -196,7 +196,7 @@ export const Hero: React.FC = () => {
                Rise <br/> Above <br/> The Hate.
              </h1>
              <p className="text-lg md:text-2xl text-gray-300 font-light tracking-wide max-w-md mx-auto md:mx-0">
-               A visual declaration of protection against Anti-Black hate.
+               Learn how Anti-Black affects everyone.
              </p>
              <div className="pt-2">
                 <span className="text-2xl md:text-4xl font-serif font-bold italic text-white/90">#jointhecircle⚫</span>

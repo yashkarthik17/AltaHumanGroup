@@ -145,7 +145,7 @@ const CHAPTERS = [
     title: "Service & Sacrifice",
     subtitle: "Fighting for a Country That Fought Against Them",
     icon: <Sword size={24} />,
-    image: "https://images.unsplash.com/photo-1610173827002-6b4e92e02b0c?q=80&w=800&auto=format&fit=crop",
+    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_21PM_(1)_1768785712332.jpeg",
     content: (
       <div className="space-y-6">
         <p className="text-lg leading-relaxed font-light">
