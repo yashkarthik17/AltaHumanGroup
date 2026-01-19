@@ -30,7 +30,7 @@ const EVENTS = [
     year: "Present",
     title: "Systemic Legacy",
     desc: "Today, disparate outcomes in wealth, health, and justice reflect systems designed to produce inequality that continue to operate unless actively reformed.",
-    image: "https://images.unsplash.com/photo-1596484552993-9c86992d9972?q=80&w=800&auto=format&fit=crop" // Protest/Modern
+    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_25PM_1768785940430.jpeg"
   }
 ];
 
