@@ -16,10 +16,10 @@ export const Logo: React.FC<LogoProps> = ({
 }) => {
   return (
     <img 
-      src="/attached_assets/Untitled_design_1768791815935.png" 
+      src="/attached_assets/Untitled_design_(1)_1768792313734.png" 
       alt="Join The Circle Logo" 
       className={className}
-      style={style}
+      style={{ ...style, mixBlendMode: 'multiply' as const }}
     />
   );
 };

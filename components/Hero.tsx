@@ -212,7 +212,7 @@ export const Hero: React.FC = () => {
                       src="/attached_assets/Untitled_design_(1)_1768792313734.png" 
                       alt="Join The Circle Logo" 
                       className="w-full h-full object-contain"
-                      style={{ filter: 'invert(1)', mixBlendMode: 'screen' }}
+                      style={{ mixBlendMode: 'multiply' }}
                     />
                 </span>
             </div>
