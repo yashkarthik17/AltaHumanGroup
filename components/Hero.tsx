@@ -4,7 +4,7 @@ import { Logo } from './Logo';
 
 // Restoring the local video file as requested
 const STATIC_VIDEO_SOURCES = [
-  "Videos/Generated File January 17, 2026 - 11_27PM.mp4"
+  "/attached_assets/Generated_File_January_18,_2026_-_2_28PM_1768785265215.mp4"
 ];
 
 export const Hero: React.FC = () => {
