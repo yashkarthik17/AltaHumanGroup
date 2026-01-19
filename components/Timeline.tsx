@@ -24,7 +24,7 @@ const EVENTS = [
     year: "1980s-1990s",
     title: "The Crack Epidemic",
     desc: "The 'War on Drugs' disproportionately targeted Black communities during the crack epidemic, contributing to mass incarceration that persists today.",
-    image: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=800&auto=format&fit=crop" // Urban/Gritty
+    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_16PM_(1)_1768785457749.jpeg"
   },
   {
     year: "Present",
