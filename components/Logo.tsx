@@ -12,48 +12,15 @@ interface LogoProps {
 
 export const Logo: React.FC<LogoProps> = ({ 
   className = "w-24 h-24", 
-  style, 
-  color = "black", 
-  textColor,
-  textStroke,
-  textStrokeWidth = "0.8"
+  style
 }) => {
-  const mainColor = color;
-  const isLight = mainColor === 'white' || mainColor === '#fff' || mainColor === '#ffffff';
-  const secondaryColor = textColor || (isLight ? "black" : "white");
-
   return (
-    <svg viewBox="0 0 200 200" className={className} style={style} xmlns="http://www.w3.org/2000/svg" aria-label="Join The Circle Logo">
-      <defs>
-        <path id="curveTop" d="M 30,100 A 70,70 0 0,0 170,100" fill="none" />
-        <path id="curveBottomText" d="M 28,103 A 72,72 0 0,1 172,103" fill="none" />
-      </defs>
-      <circle cx="100" cy="100" r="52" fill={mainColor} />
-      <text 
-        width="200" 
-        fill={mainColor} 
-        stroke={textStroke}
-        strokeWidth={textStroke ? textStrokeWidth : 0}
-        fontSize="22" 
-        fontWeight="900" 
-        letterSpacing="1" 
-        textAnchor="middle" 
-        style={{ textTransform: 'uppercase' }}
-      >
-        <textPath xlinkHref="#curveTop" startOffset="50%">
-          Join The Circle
-        </textPath>
-      </text>
-      <path 
-        d="M 10,100 A 90,90 0 0,1 190,100 L 160,100 A 60,60 0 0,0 40,100 Z" 
-        fill={mainColor} 
-      />
-      <text width="200" fill={secondaryColor} fontSize="11.5" fontWeight="800" letterSpacing="0.5" textAnchor="middle" style={{ textTransform: 'uppercase' }}>
-        <textPath xlinkHref="#curveBottomText" startOffset="50%">
-          Stop The Hate of Black People
-        </textPath>
-      </text>
-    </svg>
+    <img 
+      src="/attached_assets/Untitled_design_1768791815935.png" 
+      alt="Join The Circle Logo" 
+      className={className}
+      style={style}
+    />
   );
 };
 
