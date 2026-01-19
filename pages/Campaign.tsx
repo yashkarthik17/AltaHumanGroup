@@ -2,7 +2,9 @@
 import React, { useEffect } from 'react';
 import { Hero } from '../components/Hero';
 import { TypewriterSection } from '../components/TypewriterSection';
-import { Manifesto } from '../components/Manifesto';
+import { CampaignIntro } from '../components/CampaignIntro';
+import { Timeline } from '../components/Timeline';
+import { CampaignChapters } from '../components/CampaignChapters';
 import { ImpactStats } from '../components/ImpactStats';
 import { WearTheCircle } from '../components/WearTheCircle';
 import { SocialShare } from '../components/SocialShare';
@@ -22,28 +24,36 @@ export const Campaign: React.FC = () => {
         {/* Rhythmic transition component */}
         <TypewriterSection />
 
-        {/* Narrative and data sections */}
-        <Manifesto />
+        {/* SECTION 1: Understanding The Problem */}
+        <CampaignIntro />
+
+        {/* SECTION 2: History */}
+        <Timeline />
+        
+        {/* SECTION 3: Deep Dive Topics (Dossier Style) */}
+        <CampaignChapters />
+
+        {/* SECTION 4: Data */}
         <ImpactStats />
         
-        {/* New Merchandise/Pin Section */}
+        {/* SECTION 5: Merchandise/Pin Section */}
         <WearTheCircle />
 
-        {/* Parallax Social Media Section */}
+        {/* SECTION 6: Social Proof */}
         <SocialShare />
 
-        {/* Interactive education tool */}
+        {/* SECTION 7: AI Education Tool */}
         <EducationAI />
         
         {/* Final Conversion Point */}
         <section id="join" className="py-32 bg-black text-white text-center">
           <div className="container mx-auto px-6">
             <div className="mb-12">
-                <span className="text-4xl md:text-6xl font-serif font-bold italic tracking-tighter">#BlackCircle</span>
+                <span className="text-4xl md:text-6xl font-serif font-bold italic tracking-tighter">#jointhecircle⚫</span>
             </div>
-            <h2 className="text-5xl md:text-7xl font-serif italic mb-8 leading-tight tracking-tighter">Will you join us?</h2>
+            <h2 className="text-5xl md:text-7xl font-serif italic mb-8 leading-tight tracking-tighter">Will you stand with us?</h2>
             <p className="text-gray-400 text-xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-              Add your voice to the perimeter. Together, we are creating a world where hate has no place to hide.
+              Add your voice to the movement. Together, we're building a world where hate has no place to hide and justice is available to everyone.
             </p>
             <div className="flex justify-center">
               <form className="w-full max-w-lg flex flex-col sm:flex-row gap-0 overflow-hidden rounded-none" onSubmit={(e) => e.preventDefault()}>
@@ -53,7 +63,7 @@ export const Campaign: React.FC = () => {
                   className="flex-1 px-6 py-5 text-black focus:outline-none bg-white font-light text-lg"
                 />
                 <button className="px-10 py-5 bg-white text-black border-l border-gray-200 font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors">
-                  Join Circle
+                  Join The Circle
                 </button>
               </form>
             </div>

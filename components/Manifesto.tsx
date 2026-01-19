@@ -139,7 +139,7 @@ export const Manifesto: React.FC = () => {
                    <RevealOnScroll>
                        <div className="prose prose-lg md:prose-xl prose-gray max-w-none">
                            <p className="text-2xl md:text-4xl leading-tight font-serif font-medium text-black mb-6 md:mb-8">
-                              Anti-Blackness is the specific mechanism that devalues Black existence. 
+                              Anti-Black is the specific mechanism that devalues Black existence. 
                            </p>
                            <p className="text-lg md:text-xl text-gray-600 leading-loose">
                               It is distinct from general "racism" or "prejudice." It is the foundational architecture of a society that was built on the conversion of Black humanity into capital. It operates by stripping Black people of the presumption of innocence, safety, and capability.
@@ -162,7 +162,7 @@ export const Manifesto: React.FC = () => {
                        <div className="bg-black text-white p-8 md:p-10 rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
                            <h4 className="text-2xl md:text-3xl font-serif italic mb-6">The Objective</h4>
                            <p className="text-lg text-gray-300 leading-loose">
-                              To understand Anti-Blackness is to understand that disparate outcomes (in health, wealth, and justice) are not "glitches" in the system—they are the system working exactly as it was designed. 
+                              To understand Anti-Black is to understand that disparate outcomes (in health, wealth, and justice) are not "glitches" in the system—they are the system working exactly as it was designed. 
                            </p>
                        </div>
                    </RevealOnScroll>
@@ -185,7 +185,7 @@ export const Manifesto: React.FC = () => {
                     How it Manifests.
                 </h3>
                 <p className="text-lg md:text-xl text-gray-600 font-light">
-                    Anti-Blackness is an operating system running in the background of every major institution.
+                    Anti-Black is an operating system running in the background of every major institution.
                 </p>
             </div>
 
@@ -287,7 +287,7 @@ export const Manifesto: React.FC = () => {
                       </p>
                       <div className="pl-6 border-l border-white/30">
                           <p className="text-lg text-gray-400 italic">
-                             "To consume the fruit while poisoning the root is the ultimate form of Anti-Blackness. True allyship means valuing the creator as much as the creation."
+                             "To consume the fruit while poisoning the root is the ultimate form of Anti-Black. True allyship means valuing the creator as much as the creation."
                           </p>
                       </div>
                   </div>

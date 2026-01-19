@@ -6,9 +6,18 @@ interface LogoProps {
   style?: React.CSSProperties;
   color?: string; 
   textColor?: string; 
+  textStroke?: string;
+  textStrokeWidth?: string | number;
 }
 
-export const Logo: React.FC<LogoProps> = ({ className = "w-24 h-24", style, color = "black", textColor }) => {
+export const Logo: React.FC<LogoProps> = ({ 
+  className = "w-24 h-24", 
+  style, 
+  color = "black", 
+  textColor,
+  textStroke,
+  textStrokeWidth = "0.8"
+}) => {
   const mainColor = color;
   const isLight = mainColor === 'white' || mainColor === '#fff' || mainColor === '#ffffff';
   const secondaryColor = textColor || (isLight ? "black" : "white");
@@ -20,7 +29,17 @@ export const Logo: React.FC<LogoProps> = ({ className = "w-24 h-24", style, colo
         <path id="curveBottomText" d="M 28,103 A 72,72 0 0,1 172,103" fill="none" />
       </defs>
       <circle cx="100" cy="100" r="52" fill={mainColor} />
-      <text width="200" fill={mainColor} fontSize="22" fontWeight="900" letterSpacing="1" textAnchor="middle" style={{ textTransform: 'uppercase' }}>
+      <text 
+        width="200" 
+        fill={mainColor} 
+        stroke={textStroke}
+        strokeWidth={textStroke ? textStrokeWidth : 0}
+        fontSize="22" 
+        fontWeight="900" 
+        letterSpacing="1" 
+        textAnchor="middle" 
+        style={{ textTransform: 'uppercase' }}
+      >
         <textPath xlinkHref="#curveTop" startOffset="50%">
           Join The Circle
         </textPath>

@@ -1,11 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 
 const PHRASES = [
-  "you witness racial profiling?",
-  "someone dismisses systemic racism?",
-  "a friend makes a 'harmless' joke?",
-  "you see hate speech online?",
-  "silence feels like the only option?"
+  "you witness Anti-Black profiling?",
+  "someone dismisses Anti-Black racism?",
+  "a friend makes an Anti-Black joke?",
+  "you see Anti-Black hate speech?",
+  "silence feels like complicity?"
 ];
 
 export const TypewriterSection: React.FC = () => {

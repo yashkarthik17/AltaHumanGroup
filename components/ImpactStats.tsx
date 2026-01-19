@@ -36,7 +36,7 @@ interface StatCardProps {
   suffix?: string;
   prefix?: string;
   description: string;
-  source: string;
+  source?: string; // Made optional
   theme?: 'dark' | 'light' | 'gray';
   delay?: string;
 }
@@ -89,7 +89,7 @@ const StatCard: React.FC<StatCardProps> = ({
       </div>
 
       <div className="flex-1 flex flex-col justify-center">
-        <h3 className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none mb-6">
+        <h3 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none mb-6">
           {numberValue ? (
             <>
               {prefix}{animatedNumber}{suffix}
@@ -101,12 +101,14 @@ const StatCard: React.FC<StatCardProps> = ({
       </div>
       <div>
         <div className="w-12 h-1 bg-current mb-6 opacity-20 group-hover:opacity-100 transition-opacity"></div>
-        <p className="text-xl md:text-2xl font-serif font-medium leading-snug mb-6">
+        <p className="text-lg md:text-xl font-serif font-medium leading-snug mb-6">
           {description}
         </p>
-        <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold">
-          Source: {source}
-        </p>
+        {source && (
+            <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold">
+            Source: {source}
+            </p>
+        )}
       </div>
     </div>
   );
@@ -114,84 +116,81 @@ const StatCard: React.FC<StatCardProps> = ({
 
 export const ImpactStats: React.FC = () => {
   return (
-    <section className="bg-white">
+    <section className="bg-white border-t border-gray-100">
       {/* Title Section */}
-      <div className="py-24 px-4 container mx-auto text-center max-w-4xl">
-        <h2 className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6">The Data</h2>
+      <div className="py-24 px-6 container mx-auto text-center max-w-4xl">
+        <h2 className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6">By The Numbers</h2>
         <h3 className="text-4xl md:text-6xl font-serif font-medium leading-tight mb-6">
-            The numbers tell a story of systemic design, not accidental failure.
+            The Toll of Anti-Black
         </h3>
+        <p className="text-lg text-gray-600 font-light">
+            These statistics reflect systemic patterns, not isolated incidents.
+        </p>
       </div>
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full">
         <StatCard 
-          number="59%"
-          numberValue={59}
-          suffix="%"
-          description="Of all race-based hate crimes in the US target Black people, despite being 14% of the population."
-          source="FBI Hate Crime Statistics, 2022"
+          number="28h"
+          numberValue={28}
+          suffix="h"
+          description="An African American is killed by police, security, or vigilantes approximately every 28 hours."
           theme="dark"
           delay="0ms"
+          source="MXGM"
         />
-        <div className="relative h-[360px] md:h-auto overflow-hidden group">
-            <img 
-              src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-              alt="Portrait"
-              className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-        </div>
-        
-        <StatCard 
-          number="1/3"
-          description="Black men are projected to be incarcerated at some point in their lifetime if current trends continue."
-          source="The Sentencing Project"
+         <StatCard 
+          number="5.7x"
+          description="African Americans are incarcerated at 5.7 times the rate of white Americans."
           theme="gray"
           delay="100ms"
         />
         
-        <div className="relative h-[360px] md:h-auto overflow-hidden group">
+        <div className="relative h-[360px] md:h-auto overflow-hidden group col-span-1 md:col-span-2 lg:col-span-1 bg-zinc-900">
+             <div className="absolute inset-0 p-10 flex flex-col justify-center text-white z-10">
+                 <h4 className="text-6xl font-bold mb-4">44%</h4>
+                 <p className="text-gray-300 font-serif">Of all assault victims in the United States are African American.</p>
+                 <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold mt-4">Source: Bureau of Justice</p>
+             </div>
              <img 
-              src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-              alt="Portrait"
-              className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110"
-            />
-        </div>
-
-        <div className="relative h-[360px] md:h-auto overflow-hidden group hidden lg:block">
-            <img 
-              src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-              alt="Portrait"
-              className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110"
+              src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800&auto=format&fit=crop" // Gavel/Justice/Law
+              alt="Justice texture"
+              className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-10 transition-opacity duration-700"
             />
         </div>
 
         <StatCard 
-          number="2.5x"
-          description="Black women are nearly 3 times more likely to die from pregnancy-related causes than white women."
-          source="CDC Health Statistics"
+          number="10x"
+          numberValue={10}
+          suffix="x"
+          description="The median white family holds approximately ten times the wealth of the median Black family."
           theme="light"
           delay="200ms"
         />
         
-        <div className="relative h-[360px] md:h-auto overflow-hidden group lg:hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-              alt="Portrait"
-              className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110"
-            />
-        </div>
+        <StatCard 
+            number="$4B+"
+            description="Estimated economic value extracted through slave labor (in 19th-century dollars)."
+            theme="dark"
+            delay="300ms"
+        />
 
         <StatCard 
-          number="84%"
-          numberValue={84}
+          number="35%"
+          numberValue={35}
           suffix="%"
-          description="Of Black adults say they believe the US economic system is stacked against them."
-          source="Pew Research Center"
-          theme="dark"
-          delay="300ms"
+          description="African American women experience intimate partner violence at a rate 35% higher than white women."
+          theme="gray"
+          delay="400ms"
+          source="NCADV"
         />
+
+        <div className="relative h-[360px] md:h-auto overflow-hidden group lg:col-span-1 bg-white border border-gray-100 flex items-center justify-center">
+             <div className="text-center p-8">
+                <div className="text-5xl font-bold mb-2 text-black">1 in 3</div>
+                <p className="text-gray-500 text-sm uppercase tracking-widest font-bold">Black men face a lifetime probability of incarceration</p>
+             </div>
+        </div>
       </div>
     </section>
   );

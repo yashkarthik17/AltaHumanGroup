@@ -70,7 +70,7 @@ export const Home: React.FC = () => {
                 <div className="relative hidden md:block">
                     <div className="aspect-[4/5] bg-gray-50 overflow-hidden">
                         <img 
-                            src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000&auto=format&fit=crop" 
+                            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1000&auto=format&fit=crop" 
                             alt="Legal and humanitarian professional setting" 
                             className="w-full h-full object-cover grayscale opacity-60 mix-blend-multiply"
                         />
