@@ -193,7 +193,7 @@ export const Hero: React.FC = () => {
                 <span className="text-[9px] md:text-[10px] font-bold tracking-[0.3em] uppercase">The Perimeter</span>
              </div>
              <h1 className="text-5xl md:text-8xl font-serif font-bold italic tracking-tighter leading-[0.9] mb-4">
-               Solidarity. <br/> Without <br/> Exception.
+               Rise <br/> Above <br/> The Hate.
              </h1>
              <p className="text-lg md:text-2xl text-gray-300 font-light tracking-wide max-w-md mx-auto md:mx-0">
                A visual declaration of protection against Anti-Black hate.
