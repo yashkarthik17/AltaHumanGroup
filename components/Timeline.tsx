@@ -6,7 +6,7 @@ const EVENTS = [
     year: "1619",
     title: "The Beginning",
     desc: "In late August 1619, 20-30 enslaved Africans landed at Point Comfort, Virginia. This marked the beginning of over two centuries of chattel slavery in America.",
-    image: "https://images.unsplash.com/photo-1598556804561-2673238382d5?q=80&w=800&auto=format&fit=crop" // Historic/Old paper texture
+    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_24PM_1768785895873.jpeg"
   },
   {
     year: "1863",
