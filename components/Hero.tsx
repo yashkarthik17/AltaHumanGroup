@@ -208,7 +208,12 @@ export const Hero: React.FC = () => {
             {/* Wrapper ensures we can always measure the original position even when logo is moved/scaled */}
             <div ref={logoWrapperRef} className="w-48 h-48 md:w-72 md:h-72 relative z-10">
                 <span ref={logoRef} className="block w-full h-full will-change-transform origin-center drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                    <Logo className="w-full h-full" color="black" textStroke="white" textStrokeWidth="0.8" />
+                    <img 
+                      src="/attached_assets/Untitled_design_(1)_1768792313734.png" 
+                      alt="Join The Circle Logo" 
+                      className="w-full h-full object-contain"
+                      style={{ filter: 'invert(1)', mixBlendMode: 'screen' }}
+                    />
                 </span>
             </div>
             <p className="hero-text-fade mt-8 text-[9px] md:text-[10px] font-bold tracking-[0.4em] uppercase text-gray-400 animate-pulse">
