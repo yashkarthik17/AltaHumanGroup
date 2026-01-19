@@ -18,7 +18,7 @@ export const Logo: React.FC<LogoProps> = ({
     <img 
       src="/attached_assets/Untitled_design_1768791815935.png" 
       alt="Join The Circle Logo" 
-      className={className}
+      className={`${className} mix-blend-multiply`}
       style={style}
     />
   );
