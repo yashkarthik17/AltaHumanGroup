@@ -8,7 +8,7 @@ const CHAPTERS = [
     title: "Discredited Wealth",
     subtitle: "The $4 Billion Foundation",
     icon: <Landmark size={24} />,
-    image: "https://images.unsplash.com/photo-1526304640152-d4619684e484?q=80&w=800&auto=format&fit=crop",
+    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_28PM_1768786123918.jpeg",
     content: (
       <div className="space-y-6">
         <p className="text-lg leading-relaxed font-light">
