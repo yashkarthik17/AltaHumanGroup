@@ -9,7 +9,8 @@ const STATIC_VIDEO_SOURCES = [
 
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLSpanElement>(null);
+  const logoWrapperRef = useRef<HTMLDivElement>(null); // New static reference
+  const logoRef = useRef<HTMLSpanElement>(null); // Animated element
   const bgRef = useRef<HTMLDivElement>(null);
   const bottomBarRef = useRef<HTMLDivElement>(null);
   const contentWrapperRef = useRef<HTMLDivElement>(null);
@@ -32,12 +33,10 @@ export const Hero: React.FC = () => {
   // Logo Position Measurement
   useEffect(() => {
     const measureLogo = () => {
-      if (logoRef.current) {
-        const rect = logoRef.current.getBoundingClientRect();
-        // Store the initial center position of the logo relative to the viewport
-        // We only want to capture this when scroll is at 0 ideally, but sticky handling makes it tricky.
-        // Best approach: Measure relative to the sticky container if possible, or lock it.
-        // For now, simple bounding rect works if we assume top of page.
+      // We measure the WRAPPER, which doesn't move/scale during animation
+      // This ensures that even if we resize while scrolled, we get the correct "home" position
+      if (logoWrapperRef.current) {
+        const rect = logoWrapperRef.current.getBoundingClientRect();
         setInitialLogoPos({
           x: rect.left + rect.width / 2,
           y: rect.top + rect.height / 2
@@ -45,7 +44,6 @@ export const Hero: React.FC = () => {
       }
     };
 
-    // Delay slightly to ensure layout stability
     const timer = setTimeout(measureLogo, 100);
     window.addEventListener('resize', measureLogo);
     return () => {
@@ -63,24 +61,20 @@ export const Hero: React.FC = () => {
       const windowHeight = window.innerHeight;
       const windowWidth = window.innerWidth;
       
-      // Calculate scroll progress
-      // totalScrollHeight is how much we can scroll inside this component
       const totalScrollDistance = containerRef.current.offsetHeight - windowHeight;
       
       if (totalScrollDistance <= 0) return;
 
-      // rect.top is negative as we scroll down
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(scrolled / totalScrollDistance, 1));
       
       requestAnimationFrame(() => {
         // 1. Fade out text elements
-        const textFadeOutPoint = 0.4; // Fade out faster so logo can take over
+        const textFadeOutPoint = 0.4;
         const textOpacity = Math.max(0, 1 - (progress / textFadeOutPoint));
         
         if (bottomBarRef.current) bottomBarRef.current.style.opacity = `${textOpacity}`;
         if (contentWrapperRef.current) {
-            // Fade out the text content wrapper
             const textNodes = contentWrapperRef.current.querySelectorAll('.hero-text-fade');
             textNodes.forEach(node => {
                 (node as HTMLElement).style.opacity = `${textOpacity}`;
@@ -88,32 +82,23 @@ export const Hero: React.FC = () => {
         }
 
         // 2. Logo Animation
-        // Goal: Move logo from initial position to exact center of screen, then scale up.
-        
         const centerScreenX = windowWidth / 2;
         const centerScreenY = windowHeight / 2;
         
-        // Delta needed to move to center
         const deltaX = centerScreenX - initialLogoPos.x;
         const deltaY = centerScreenY - initialLogoPos.y;
         
-        // Easing for movement (move to center quickly)
-        const moveProgress = Math.min(progress * 2, 1); // Reaches center by 50% scroll
+        const moveProgress = Math.min(progress * 2, 1);
         const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
         const currentX = deltaX * easeOut(moveProgress);
         const currentY = deltaY * easeOut(moveProgress);
 
-        // Scale logic (start scaling after slightly moving, then massive expansion)
-        // We want it to fill the screen ("in your face").
-        // Scale 1 to 100.
         const scaleProgress = Math.max(0, (progress - 0.1) / 0.9);
-        const scale = 1 + (scaleProgress * scaleProgress * 80); // Quadratic scale for "zoom" feel
+        const scale = 1 + (scaleProgress * scaleProgress * 80);
 
-        // Rotation
         const rotation = progress * 90;
 
         if (logoRef.current) {
-             // Ensure z-index increases as it expands to cover text
              logoRef.current.style.zIndex = progress > 0.1 ? '50' : '10';
              logoRef.current.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale(${scale}) rotate(${rotation}deg)`;
         }
@@ -132,7 +117,6 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    // Increased height to 250vh to give plenty of room for the "expansion" animation
     <div ref={containerRef} className="relative h-[250vh] w-full bg-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
         
@@ -189,11 +173,14 @@ export const Hero: React.FC = () => {
              </div>
           </div>
 
-          {/* Logo Section - Order changes on mobile to ensure it's visible for the "Expand" effect */}
+          {/* Logo Section */}
           <div className="mt-12 md:mt-0 flex flex-col items-center order-2 md:order-2 relative">
-            <span ref={logoRef} className="block will-change-transform origin-center drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] relative z-10">
-                <Logo className="w-48 h-48 md:w-72 md:h-72" color="black" textStroke="white" textStrokeWidth="0.8" />
-            </span>
+            {/* Wrapper ensures we can always measure the original position even when logo is moved/scaled */}
+            <div ref={logoWrapperRef} className="w-48 h-48 md:w-72 md:h-72 relative z-10">
+                <span ref={logoRef} className="block w-full h-full will-change-transform origin-center drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                    <Logo className="w-full h-full" color="black" textStroke="white" textStrokeWidth="0.8" />
+                </span>
+            </div>
             <p className="hero-text-fade mt-8 text-[9px] md:text-[10px] font-bold tracking-[0.4em] uppercase text-gray-400 animate-pulse">
                Scroll to Enter
             </p>

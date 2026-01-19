@@ -1,16 +1,16 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
 
 export const CampaignIntro: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0.9);
-  const [opacity, setOpacity] = useState(0.5);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!imageRef.current) return;
-      const rect = imageRef.current.getBoundingClientRect();
+      if (!imageRef.current || !containerRef.current) return;
+      
+      const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
       // Calculate how far the image is into the viewport
@@ -20,13 +20,17 @@ export const CampaignIntro: React.FC = () => {
         const clamped = Math.min(Math.max(progress, 0), 1);
         
         // Scale from 0.9 to 1.1 based on scroll for expansion effect
-        setScale(0.9 + (clamped * 0.2));
-        setOpacity(0.5 + (clamped * 0.5));
+        // Using direct DOM manipulation avoids React re-renders causing jitter
+        const scale = 0.9 + (clamped * 0.2);
+        const opacity = 0.5 + (clamped * 0.5);
+        
+        imageRef.current.style.transform = `scale(${scale})`;
+        imageRef.current.style.opacity = `${opacity}`;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -59,13 +63,13 @@ export const CampaignIntro: React.FC = () => {
         </div>
 
         {/* Expansion Image Effect */}
-        <div className="relative w-full aspect-[21/9] overflow-hidden rounded-sm bg-gray-100 mt-12">
+        <div ref={containerRef} className="relative w-full aspect-[21/9] overflow-hidden rounded-sm bg-gray-100 mt-12">
             <div 
                 ref={imageRef}
-                className="w-full h-full transition-transform duration-100 ease-out will-change-transform"
+                className="w-full h-full transition-transform duration-75 ease-out will-change-transform"
                 style={{ 
-                    transform: `scale(${scale})`,
-                    opacity: opacity,
+                    transform: 'scale(0.9)',
+                    opacity: 0.5,
                     backgroundImage: 'url(https://images.unsplash.com/photo-1596796929552-3200d4399e5f?q=80&w=2000&auto=format&fit=crop)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
