@@ -18,7 +18,7 @@ const EVENTS = [
     year: "1877-1960s",
     title: "Jim Crow Era",
     desc: "State and local laws introduced in the Southern United States enforced racial segregation. These laws remained in force until the 1960s, creating a legal framework for discrimination.",
-    image: "https://images.unsplash.com/photo-1574092520671-5517176df9d4?q=80&w=800&auto=format&fit=crop" // Historical feeling/BW
+    image: "/attached_assets/Generated_Image_January_18,_2026_-_5_18PM_1768785541967.jpeg"
   },
   {
     year: "1980s-1990s",
