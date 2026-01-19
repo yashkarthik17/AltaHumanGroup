@@ -865,14 +865,14 @@ export const CampaignChapters: React.FC = () => {
               <div key={chapter.id} className={`border border-gray-200 transition-colors duration-300 ${isOpen ? 'bg-white shadow-xl my-8 scale-[1.01]' : 'bg-gray-50 hover:bg-white'}`}>
                 <button 
                   onClick={() => toggleChapter(chapter.id)}
-                  className="w-full flex items-center justify-between p-6 md:p-8 text-left focus:outline-none"
+                  className="w-full flex items-center justify-between p-4 md:p-8 text-left focus:outline-none"
                 >
-                  <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-3 md:gap-6">
                     <div className={`p-3 rounded-full transition-colors duration-300 ${isOpen ? 'bg-black text-white' : 'bg-white text-gray-400 border border-gray-200'}`}>
                       {chapter.icon}
                     </div>
                     <div>
-                      <h3 className={`text-xl md:text-2xl font-serif font-bold transition-colors ${isOpen ? 'text-black' : 'text-gray-700'}`}>{chapter.title}</h3>
+                      <h3 className={`text-base md:text-2xl font-serif font-bold transition-colors ${isOpen ? 'text-black' : 'text-gray-700'}`}>{chapter.title}</h3>
                       <p className={`text-sm uppercase tracking-widest mt-1 transition-colors ${isOpen ? 'text-gray-500' : 'text-gray-400'}`}>{chapter.subtitle}</p>
                     </div>
                   </div>
@@ -882,9 +882,9 @@ export const CampaignChapters: React.FC = () => {
                 </button>
                 
                 <div 
-                    className={`overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}
+                    className={`overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${isOpen ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}
                 >
-                  <div className="p-8 pt-0 md:p-10 md:pt-0 pl-[5.5rem] md:pl-[6.5rem]">
+                  <div className="p-4 pt-0 md:p-10 md:pt-0 pl-4 md:pl-[6.5rem]">
                     <div className="flex flex-col md:flex-row gap-8">
                       <div className="flex-1">
                         <div className="w-12 h-1 bg-black mb-6"></div>
