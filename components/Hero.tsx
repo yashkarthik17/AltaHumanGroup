@@ -162,11 +162,11 @@ export const Hero: React.FC = () => {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover scale-105 opacity-50" 
+                    preload="auto"
+                    className="w-full h-full object-cover scale-105 opacity-50"
+                    src={src}
                     onError={(e) => console.warn("Video load error")}
-                >
-                    <source src={src} type="video/mp4" />
-                </video>
+                />
              </div>
            ))}
            
