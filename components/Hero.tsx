@@ -209,10 +209,9 @@ export const Hero: React.FC = () => {
             <div ref={logoWrapperRef} className="w-48 h-48 md:w-72 md:h-72 relative z-10">
                 <span ref={logoRef} className="block w-full h-full will-change-transform origin-center drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
                     <img 
-                      src="/attached_assets/Untitled_design_(1)_1768792313734.png" 
+                      src="/attached_assets/Untitled_design__1_-removebg-preview_1768792733075.png" 
                       alt="Join The Circle Logo" 
                       className="w-full h-full object-contain"
-                      style={{ mixBlendMode: 'multiply' }}
                     />
                 </span>
             </div>
