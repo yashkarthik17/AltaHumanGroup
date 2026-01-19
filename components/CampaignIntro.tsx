@@ -70,7 +70,7 @@ export const CampaignIntro: React.FC = () => {
                 style={{ 
                     transform: 'scale(0.9)',
                     opacity: 0.5,
-                    backgroundImage: 'url(https://images.unsplash.com/photo-1596796929552-3200d4399e5f?q=80&w=2000&auto=format&fit=crop)',
+                    backgroundImage: 'url(/attached_assets/Generated_Image_January_18,_2026_-_4_59PM_1768784514823.jpeg)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                 }}
