@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Logo } from './Logo';
 
 // Restoring the local video file as requested
@@ -9,8 +9,8 @@ const STATIC_VIDEO_SOURCES = [
 
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const logoWrapperRef = useRef<HTMLDivElement>(null); // New static reference
-  const logoRef = useRef<HTMLSpanElement>(null); // Animated element
+  const logoWrapperRef = useRef<HTMLDivElement>(null); 
+  const logoRef = useRef<HTMLSpanElement>(null); 
   const bgRef = useRef<HTMLDivElement>(null);
   const bottomBarRef = useRef<HTMLDivElement>(null);
   const contentWrapperRef = useRef<HTMLDivElement>(null);
@@ -31,44 +31,65 @@ export const Hero: React.FC = () => {
   }, [videoSources.length]); 
 
   // Logo Position Measurement
-  useEffect(() => {
-    const measureLogo = () => {
-      // We measure the WRAPPER, which doesn't move/scale during animation
-      // This ensures that even if we resize while scrolled, we get the correct "home" position
-      if (logoWrapperRef.current) {
-        const rect = logoWrapperRef.current.getBoundingClientRect();
-        setInitialLogoPos({
-          x: rect.left + rect.width / 2,
-          y: rect.top + rect.height / 2
-        });
-      }
-    };
+  const measureLogo = useCallback(() => {
+    if (logoWrapperRef.current) {
+      const rect = logoWrapperRef.current.getBoundingClientRect();
+      setInitialLogoPos({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+      });
+    }
+  }, []);
 
+  useEffect(() => {
     const timer = setTimeout(measureLogo, 100);
     window.addEventListener('resize', measureLogo);
     return () => {
       window.removeEventListener('resize', measureLogo);
       clearTimeout(timer);
     };
-  }, []);
+  }, [measureLogo]);
 
   // Scroll Animation Logic
   useEffect(() => {
+    let animationFrameId: number;
+    let totalScrollDistance = 0;
+    
+    // Update dimensions function
+    const updateMetrics = () => {
+      if (containerRef.current) {
+         // Cache this value to avoid reading offsetHeight in scroll loop
+         totalScrollDistance = containerRef.current.offsetHeight - window.innerHeight;
+      }
+    };
+
+    // Initial measure
+    updateMetrics();
+    window.addEventListener('resize', updateMetrics);
+
     const handleScroll = () => {
       if (!containerRef.current || !logoRef.current || !initialLogoPos) return;
-      
-      const rect = containerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const windowWidth = window.innerWidth;
-      
-      const totalScrollDistance = containerRef.current.offsetHeight - windowHeight;
-      
       if (totalScrollDistance <= 0) return;
 
-      const scrolled = -rect.top;
-      const progress = Math.max(0, Math.min(scrolled / totalScrollDistance, 1));
+      // Use window.scrollY for faster checking if we are past the hero
+      // This assumes the Hero is at the very top. If not, we'd need to account for offsetTop.
+      const scrollY = window.scrollY;
+
+      // Performance: If we've scrolled well past the hero section, skip animation updates
+      // The hero is 250vh tall.
+      if (scrollY > totalScrollDistance + window.innerHeight) {
+         return; 
+      }
+
+      // We read from the cached totalScrollDistance
+      // We still need relative scroll progress. 
+      // Using window.scrollY directly is much faster than getBoundingClientRect()
+      // assuming Hero is top-aligned.
+      const progress = Math.max(0, Math.min(scrollY / totalScrollDistance, 1));
       
-      requestAnimationFrame(() => {
+      cancelAnimationFrame(animationFrameId);
+      
+      animationFrameId = requestAnimationFrame(() => {
         // 1. Fade out text elements
         const textFadeOutPoint = 0.4;
         const textOpacity = Math.max(0, 1 - (progress / textFadeOutPoint));
@@ -82,6 +103,8 @@ export const Hero: React.FC = () => {
         }
 
         // 2. Logo Animation
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
         const centerScreenX = windowWidth / 2;
         const centerScreenY = windowHeight / 2;
         
@@ -101,12 +124,19 @@ export const Hero: React.FC = () => {
         if (logoRef.current) {
              logoRef.current.style.zIndex = progress > 0.1 ? '50' : '10';
              logoRef.current.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale(${scale}) rotate(${rotation}deg)`;
+             // Hide logo when scale is massive to prevent painting huge area if not needed
+             logoRef.current.style.opacity = scale > 80 ? '0' : '1';
         }
       });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateMetrics);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, [initialLogoPos]);
 
   const scrollToContent = () => {
